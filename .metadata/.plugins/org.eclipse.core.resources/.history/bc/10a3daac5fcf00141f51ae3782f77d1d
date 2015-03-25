@@ -1,0 +1,23 @@
+import java.io.IOException;
+import java.util.Iterator;
+
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Reducer;
+
+public class ReducerTest extends
+Reducer<Text, Text, Text, Text>
+{
+public void reduce(Text key, Iterator<Text> values, Context context)
+throws IOException, InterruptedException
+{
+boolean first = true;
+StringBuilder toReturn = new StringBuilder();
+while (values.hasNext()) {
+if (!first)
+toReturn.append(", ");
+first = false;
+toReturn.append(values.next().toString());
+}
+context.write(key, new Text(toReturn.toString()));
+}
+}

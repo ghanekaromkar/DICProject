@@ -1,0 +1,45 @@
+package mypackage;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.HashSet;
+import java.util.StringTokenizer;
+
+import org.apache.hadoop.conf.*;
+import org.apache.hadoop.fs.FileStatus;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
+
+public class ResultsRetriever {
+
+	public static void main(String args[]) throws IOException{
+		SearchJob.search(args);
+		FileSystem fs = FileSystem.get(new Configuration());
+		FileStatus[] status = fs.listStatus(new Path("hdfs://152.1.13.216/user/oghanek/result"));
+		for (int i=0;i<status.length;i++){
+            BufferedReader br=new BufferedReader(new InputStreamReader(fs.open(status[i].getPath())));
+            String line;
+            line=br.readLine();
+            HashSet<String> prev=new HashSet<String>();
+            while (line != null){
+                    prev=intersect(prev,line);
+                    line=br.readLine();
+            }
+            for(String str: prev){
+            	System.out.println(str);
+            }
+    }
+	}
+
+	private static HashSet<String> intersect(HashSet<String> prev, String line) {
+		StringTokenizer st= new StringTokenizer(line,"|");
+		HashSet<String> current = new HashSet<String>();
+		while(st.hasMoreTokens()){
+			String str= st.nextToken().trim();
+			if(prev.contains(str))
+				current.add(str);
+		}
+		return current;
+	}
+}

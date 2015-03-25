@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;mypackage.QuerySearcher&apos; to &apos;ResultsRetriever&apos;&#x0A;- Original project: &apos;SearchJob&apos;&#x0A;- Original element: &apos;mypackage.QuerySearcher&apos;&#x0A;- Renamed element: &apos;mypackage.ResultsRetriever&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;QuerySearcher&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;mypackage{QuerySearcher.java[QuerySearcher" matchStrategy="1" name="ResultsRetriever" qualified="false" references="true" similarDeclarations="false" stamp="1427223293816" textual="false" version="1.0"/>
+</session>

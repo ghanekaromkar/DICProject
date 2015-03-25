@@ -1,0 +1,8 @@
+package mypackage;
+
+public class QuerySearcher {
+
+	public static void main(String args[]){
+		
+	}
+}

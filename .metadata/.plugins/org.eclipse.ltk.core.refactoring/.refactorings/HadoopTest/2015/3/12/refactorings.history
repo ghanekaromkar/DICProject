@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete element from project &apos;HadoopTest&apos;&#x0A;- Original project: &apos;HadoopTest&apos;&#x0A;- Original element: &apos;mypackage.DriverTest_two.java&apos;" description="Delete element" element1="/src&lt;mypackage{DriverTest_two.java" elements="1" flags="589830" id="org.eclipse.jdt.ui.delete" resources="0" stamp="1426901113680" subPackages="false" version="1.0"/>
+</session>
