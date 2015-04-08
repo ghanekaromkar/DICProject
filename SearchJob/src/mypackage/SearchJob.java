@@ -24,6 +24,8 @@ public class SearchJob {
 		
 		try {
 			JobClient.runJob(config);
+			System.out.print("iiiiii");
+			//ResultsRetriever.blabla();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
