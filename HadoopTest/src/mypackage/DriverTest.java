@@ -11,14 +11,14 @@ import org.apache.hadoop.mapred.JobConf;
 
 public class DriverTest {
 
-	public static void main(String[] args) throws IOException,
+	public static void main(String arg[]) throws IOException,
 			ClassNotFoundException, InterruptedException {
 		JobClient client = new JobClient();
 		JobConf config = new JobConf(DriverTest.class);
 		config.setOutputKeyClass(Text.class);
 		config.setOutputValueClass(Text.class);
-		FileInputFormat.addInputPath(config, new Path(args[1]));
-		FileOutputFormat.setOutputPath(config, new Path(args[2]));
+		FileInputFormat.addInputPath(config, new Path(arg[1]));
+		FileOutputFormat.setOutputPath(config, new Path(arg[2]));
 		config.setMapperClass(MapperTest.class);
 		config.setReducerClass(ReducerTest.class);
 		client.setConf(config);

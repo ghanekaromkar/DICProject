@@ -22,9 +22,9 @@ public class ReducerTest extends MapReduceBase implements
 		while (values.hasNext()) {
 			val = values.next();
 			if (!documents.contains(val)) {
-				toReturn.append("| ");
+				toReturn.append("|");
 
-				toReturn.append(val.toString());
+				toReturn.append(val.toString().trim());
 				documents.add(val);
 			}
 		}
