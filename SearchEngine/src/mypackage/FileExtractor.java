@@ -1,26 +1,24 @@
 package mypackage;
 
 import java.io.IOException;
-import java.util.HashSet;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Process
+ * Servlet implementation class FileExtractor
  */
-@WebServlet("/Process")
-public class Process extends HttpServlet {
+@WebServlet("/FileExtractor")
+public class FileExtractor extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Process() {
+    public FileExtractor() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,16 +27,9 @@ public class Process extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String query=request.getParameter("queryText");
-		//out.println();
-		ServletOutputStream out=response.getOutputStream();
-		response.setContentType("text/html");
-		out.println("You typed "+query+"</br>");
-		HashSet<String> result= ResultsRetriever.getResults(query);
-		for(String str: result){
-		
-			out.println("<a href=\"/SearchEngine/FileExtractor?fileName="+str+"\"/>"+str+"<br>");
-		}
+      String fileName=request.getParameter("fileName");
+      String text=HDFSReader.getText(fileName);
+      response.getOutputStream().print(text);
 	}
 
 	/**
