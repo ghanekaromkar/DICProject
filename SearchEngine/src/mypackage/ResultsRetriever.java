@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
+
 import org.apache.commons.io.FileUtils;
 
 
@@ -58,7 +59,8 @@ public class ResultsRetriever {
 	
 	public static HashSet<String> getResults(String a) throws IOException{
 		
+		HashSet<String> results= retrieve(a.split(" "));
 		FileUtils.deleteDirectory(new File("/home/omkar/result/"));
-		return retrieve(a.split(" "));
+		return results;
 	}
 }
