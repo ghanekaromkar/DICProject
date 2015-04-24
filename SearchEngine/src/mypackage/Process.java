@@ -2,6 +2,9 @@ package mypackage;
 
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.Map.Entry;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -34,8 +37,8 @@ public class Process extends HttpServlet {
 		ServletOutputStream out=response.getOutputStream();
 		response.setContentType("text/html");
 		out.println("You typed "+query+"</br>");
-		HashSet<String> result= ResultsRetriever.getResults(query);
-		for(String str: result){
+		LinkedHashMap<String, Integer> result= ResultsRetriever.getResults(query);
+		for(String str: result.keySet()){
 		
 			out.println("<a href=\"/SearchEngine/FileExtractor?fileName="+str+"\"/>"+str+"<br>");
 		}
