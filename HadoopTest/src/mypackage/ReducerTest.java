@@ -1,6 +1,7 @@
 package mypackage;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -16,18 +17,27 @@ public class ReducerTest extends MapReduceBase implements
 	public void reduce(Text key, Iterator<Text> values,
 			OutputCollector<Text, Text> output, Reporter reporter)
 			throws IOException {
-		HashSet<Text> documents = new HashSet<Text>();
+		HashMap<String,Integer> documents = new HashMap<String, Integer>();
 		StringBuilder toReturn = new StringBuilder();
-		Text val;
+		String val;
 		while (values.hasNext()) {
-			val = values.next();
-			if (!documents.contains(val)) {
-				toReturn.append("|");
+			val = values.next().toString();
+			if (!documents.containsKey(val)) {
+				//toReturn.append("|");
 
-				toReturn.append(val.toString().trim());
-				documents.add(val);
+				//toReturn.append(val.toString().trim());
+				documents.put(val,new Integer(1));
+			}
+			else{
+				Integer count=documents.get(val);
+				documents.remove(val);
+				count=count+1;
+				documents.put(val, count);
 			}
 		}
+		for(String docKey:documents.keySet())
+		{toReturn.append("|");
+		toReturn.append(docKey.toString().trim()+";"+documents.get(docKey));}
 		toReturn.deleteCharAt(0);
 		output.collect(key, new Text(toReturn.toString()));
 	}

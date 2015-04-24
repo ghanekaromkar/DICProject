@@ -17,8 +17,8 @@ public class DriverTest {
 		JobConf config = new JobConf(DriverTest.class);
 		config.setOutputKeyClass(Text.class);
 		config.setOutputValueClass(Text.class);
-		FileInputFormat.addInputPath(config, new Path(arg[1]));
-		FileOutputFormat.setOutputPath(config, new Path(arg[2]));
+		FileInputFormat.addInputPath(config, new Path(arg[0]));
+		FileOutputFormat.setOutputPath(config, new Path(arg[1]));
 		config.setMapperClass(MapperTest.class);
 		config.setReducerClass(ReducerTest.class);
 		client.setConf(config);
