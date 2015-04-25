@@ -19,6 +19,9 @@ public class SearchJob {
 		FileOutputFormat.setOutputPath(config, new Path("/home/omkar/result"));
 		config.setInputFormat(KeyValueTextInputFormat.class);
 		config.setMapperClass(SearchMapper.class);
+		config.setReducerClass(SearchReducer.class);
+		config.setNumMapTasks(2);
+		config.setNumReduceTasks(1);
 		config.setStrings("query", queryWords);
 		client.setConf(config);
 		

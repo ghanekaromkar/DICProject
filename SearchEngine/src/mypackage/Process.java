@@ -37,7 +37,7 @@ public class Process extends HttpServlet {
 		ServletOutputStream out=response.getOutputStream();
 		response.setContentType("text/html");
 		out.println("You typed "+query+"</br>");
-		LinkedHashMap<String, Integer> result= ResultsRetriever.getResults(query);
+		LinkedHashMap<String, Double> result= ResultsRetriever.getResults(query);
 		for(String str: result.keySet()){
 		
 			out.println("<a href=\"/SearchEngine/FileExtractor?fileName="+str+"\"/>"+str+"<br>");
