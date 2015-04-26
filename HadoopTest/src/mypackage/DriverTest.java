@@ -19,8 +19,12 @@ public class DriverTest {
 		config.setOutputValueClass(Text.class);
 		FileInputFormat.addInputPath(config, new Path(arg[0]));
 		FileOutputFormat.setOutputPath(config, new Path(arg[1]));
+		//FileInputFormat.addInputPath(config, new Path("/user/omkar/input"));
+		//FileOutputFormat.setOutputPath(config, new Path("/user/omkar/result"));
 		config.setMapperClass(MapperTest.class);
 		config.setReducerClass(ReducerTest.class);
+		config.setNumMapTasks(3);
+		config.setNumReduceTasks(3);
 		client.setConf(config);
 
 		try {
