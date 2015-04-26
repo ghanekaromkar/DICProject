@@ -15,12 +15,12 @@ public class SearchJob {
 		JobConf config = new JobConf(SearchJob.class);
 		config.setOutputKeyClass(Text.class);
 		config.setOutputValueClass(Text.class);
-		FileInputFormat.addInputPath(config, new Path("/home/omkar/output"));
-		FileOutputFormat.setOutputPath(config, new Path("/home/omkar/result"));
+		FileInputFormat.addInputPath(config, new Path("hdfs://152.1.13.216/user/oghanek/output"));
+		FileOutputFormat.setOutputPath(config, new Path("hdfs://152.1.13.216/user/oghanek/result"));
 		config.setInputFormat(KeyValueTextInputFormat.class);
 		config.setMapperClass(SearchMapper.class);
 		config.setReducerClass(SearchReducer.class);
-		config.setNumMapTasks(2);
+		config.setNumMapTasks(3);
 		config.setNumReduceTasks(1);
 		config.setStrings("query", queryWords);
 		client.setConf(config);
