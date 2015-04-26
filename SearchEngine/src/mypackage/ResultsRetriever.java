@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -16,12 +17,16 @@ import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.hdfs.DistributedFileSystem;
 
 public class ResultsRetriever {
 	
 	static int NUM_OF_FILES=3;
 
-	public static LinkedHashMap<String, Double> retrieve(String[] query)
+	public static LinkedHashMap<String, Double> retrieve(String[] query, FileSystem fs)
 			throws IOException {
 		// SearchJob.search(args);
 		/*
@@ -30,8 +35,8 @@ public class ResultsRetriever {
 		 * i=0;i<status.length;i++){
 		 */
 		SearchJob.search(query);
-		FileReader in = new FileReader("/home/omkar/result/part-00000");
-		BufferedReader br = new BufferedReader(in);
+		Path p = new Path("hdfs://152.1.13.216/user/oghanek/result/part-00000");
+		BufferedReader br = new BufferedReader(new InputStreamReader(fs.open(p)));
 		String line;
 		line = br.readLine();
 		LinkedHashMap<String, Double> prev = new LinkedHashMap<String, Double>();
@@ -102,9 +107,12 @@ public class ResultsRetriever {
 
 	public static LinkedHashMap<String, Double> getResults(String a)
 			throws IOException {
-
-		LinkedHashMap<String, Double> results = retrieve(a.split(" "));
-		FileUtils.deleteDirectory(new File("/home/omkar/result/"));
+		Configuration conf=new Configuration();
+		conf.addResource(new Path("/home/oghanek/hadoop-2.6.0/etc/hadoop/core-site.xml"));
+		FileSystem fs= FileSystem.get(conf);
+		fs.setConf(conf);
+		LinkedHashMap<String, Double> results = retrieve(a.split(" "),fs);
+		fs.delete(new Path("hdfs://152.1.13.216/user/oghanek/result/"),true);
 		return results;
 	}
 }

@@ -11,8 +11,11 @@ import org.apache.hadoop.fs.Path;
 public class HDFSReader {
 
 	public static String getText(String fileName) throws IOException {
-        Path pt=new Path("/home/omkar/input/"+fileName);
-        FileSystem fs = FileSystem.get(new Configuration());
+		Configuration conf=new Configuration();
+		conf.addResource(new Path("/home/oghanek/hadoop-2.6.0/etc/hadoop/core-site.xml"));
+		FileSystem fs= FileSystem.get(conf);
+		fs.setConf(conf);
+		Path pt=new Path("/user/oghanek/input/"+fileName);
         BufferedReader br=new BufferedReader(new InputStreamReader(fs.open(pt)));
         String returnText=fileName;
         String line=br.readLine();
