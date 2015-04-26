@@ -23,7 +23,7 @@ org.apache.hadoop.mapred.Mapper<Text, Text, Text, Text> {
 	@Override
 	public void map(Text key, Text val, OutputCollector<Text, Text> output,
 			Reporter reporter) throws IOException {
-		if(wordsList.contains(key.toString())){
+		if(wordsList.contains(key.toString().toLowerCase())){
 			output.collect(key,val);
 		}
 		
