@@ -12,8 +12,6 @@ pageEncoding="UTF-8"%>
 <!-- div class="starter-template"-->
 <form action="Process" method="get">
 <div class="form-group">
-	<!--input type="text" name="queryText">
-	<button class="btn btn-lg btn-primary" type="submit">Click me</button-->
 		<div class="row">
 	        <!-- div class="col-md-4">
 	    		<img src="wiki-logo.png" class="img-responsive" alt=""/>
