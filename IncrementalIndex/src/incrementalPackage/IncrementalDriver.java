@@ -2,7 +2,9 @@ package incrementalPackage;
 
 import java.io.IOException;
 
+import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.FileUtil;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapred.FileInputFormat;
@@ -35,9 +37,9 @@ public class IncrementalDriver {
 		fs.setConf(config);
 		fs.delete(origIndex,true);
 		fs.rename(updatedIndex,origIndex);
-		//FileUtil.copyMerge(fs, new Path("/home/omkar/newinput"), fs, new Path("/home/omkar/input/"), true, config,null);
+		FileStatus[] status=fs.listStatus(new Path("/user/oghanek/newinput/"));
+		FileUtil.copy(fs,FileUtil.stat2Paths(status), fs, new Path("/user/oghanek/input/"), true, true, config);
 		fs.delete(newIndex,true);
-
 		
 	}
 }
