@@ -6,12 +6,15 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map.Entry;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 
 /**
  * Servlet implementation class Process
@@ -32,16 +35,12 @@ public class Process extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String query=request.getParameter("queryText");
-		//out.println();
-		ServletOutputStream out=response.getOutputStream();
-		response.setContentType("text/html");
-		out.println("You typed "+query+"</br>");
+		String query=request.getParameter("queryText").toLowerCase();
+		RequestDispatcher rd = request.getRequestDispatcher("result.jsp");
 		LinkedHashMap<String, Double> result= ResultsRetriever.getResults(query);
-		for(String str: result.keySet()){
-		
-			out.println("<a href=\"/SearchEngine/FileExtractor?fileName="+str+"\"/>"+str+"<br>");
-		}
+		request.setAttribute("query", query);
+		request.setAttribute("result", result);
+		rd.forward(request,response);
 	}
 
 	/**

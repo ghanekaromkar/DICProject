@@ -112,7 +112,7 @@ public class ResultsRetriever {
 		FileSystem fs= FileSystem.get(conf);
 		fs.setConf(conf);
 		LinkedHashMap<String, Double> results = retrieve(a.split(" "),fs);
-		fs.delete(new Path("hdfs://152.1.13.216/user/oghanek/result/"),true);
+		fs.delete(new Path("/home/tanvi/result/"),true);
 		return results;
 	}
 }

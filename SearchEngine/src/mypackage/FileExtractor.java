@@ -29,6 +29,7 @@ public class FileExtractor extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       String fileName=request.getParameter("fileName");
       String text=HDFSReader.getText(fileName);
+      response.setContentType("application/pdf");
       response.getOutputStream().print(text);
 	}
 
