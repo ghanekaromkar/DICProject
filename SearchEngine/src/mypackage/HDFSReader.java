@@ -15,12 +15,12 @@ public class HDFSReader {
 		conf.addResource(new Path("/home/oghanek/hadoop-2.6.0/etc/hadoop/core-site.xml"));
 		FileSystem fs= FileSystem.get(conf);
 		fs.setConf(conf);
-		Path pt=new Path("/user/oghanek/input"+fileName);
+		Path pt=new Path("/user/oghanek/input/"+fileName);
         BufferedReader br=new BufferedReader(new InputStreamReader(fs.open(pt)));
         String returnText=fileName;
         String line=br.readLine();
 		while (line != null){
-			returnText=returnText+"\n"+line;
+			returnText=returnText+"<br>"+line;
                 line=br.readLine();
         }
 		return returnText;
