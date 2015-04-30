@@ -1,0 +1,41 @@
+Before proceeding with the steps make sure java is installed and install PHP engine by running command below:
+	sudo apt-get install php5
+
+1. On terminal, commands I entered:
+
+wget http://www.polishmywriting.com/download/wikipedia2text_rsm_mods.tgz
+tar zxvf wikipedia2text_rsm_mods.tgz
+cd wikipedia2text
+
+2. Then download the wikipedia dump from http://dumps.wikimedia.org/enwiki/20141208/ using following:
+
+wget http://dumps.wikimedia.org/enwiki/20141208/enwiki-20141208-pages-articles2.xml-p000010002p000024999.bz2
+
+bunzip2 enwiki-20141208-pages-articles2.xml-p000010002p000024999.bz2
+
+3. Extract articles
+
+mkdir out
+./xmldump2files.py enwiki-20141208-pages-articles2.xml-p000010002p000024999 out
+
+4. Then parse each file into XML:
+
+find out -type f | grep '\.txt$' > fr.files
+java -jar sleep.jar into8.sl fr.files
+
+(Replace existing into8.sl with the one attached here before this step)
+
+5. Run each files*.sh files individually (Let's split this into half. I can do it for 0-32 files and you can do it for 32-63 files.) 
+
+Each file takes lot of time to process, so we have to continuously monitor whether it has finished processing or it has freezed by looking inside each files*.sh if the last line txt file has been generated for corresponding xml file.
+
+./files32.sh
+and so on till 63.
+
+6. After finish running all the files upto files63.sh, now run the below command.
+
+./wikiextract.py out
+(Replace the existing wikiextract.py file with the attached file below before continuing on this step)
+
+This will create a folder name textFiles which will contain all the text file of documents.
+
