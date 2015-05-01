@@ -1,0 +1,12 @@
+1. Download MediaWiki dumps from http://dumps.wikimedia.org/enwiki/20141208/ using following:
+	wget http://dumps.wikimedia.org/enwiki/20141208/enwiki-20141208-pages-articles2.xml-p000010002p000024999.bz2
+	bunzip2 enwiki-20141208-pages-articles2.xml-p000010002p000024999.bz2
+
+2. Do the regular file finding thing using
+
+    	find wiki_dir -type f | grep '$' > fr.files
+
+   where wiki_dir is the name of the dir containing wiki__** files.
+
+3. Extract using 
+    ./extract.tcl out_new/txtfiles fr.files
