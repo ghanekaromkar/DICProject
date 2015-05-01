@@ -1,8 +1,6 @@
 package mypackage;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -13,21 +11,18 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.hdfs.DistributedFileSystem;
 
 public class ResultsRetriever {
-	
-	static int NUM_OF_FILES=4724;
 
-	public static LinkedHashMap<String, Double> retrieve(String[] query, FileSystem fs)
-			throws IOException {
+	static int NUM_OF_FILES = 4724;
+
+	public static LinkedHashMap<String, Double> retrieve(String[] query,
+			FileSystem fs) throws IOException {
 		// SearchJob.search(args);
 		/*
 		 * FileSystem fs = FileSystem.get(new Configuration()); FileStatus[]
@@ -36,7 +31,8 @@ public class ResultsRetriever {
 		 */
 		SearchJob.search(query);
 		Path p = new Path("hdfs://152.1.13.216/user/oghanek/result/part-00000");
-		BufferedReader br = new BufferedReader(new InputStreamReader(fs.open(p)));
+		BufferedReader br = new BufferedReader(
+				new InputStreamReader(fs.open(p)));
 		String line;
 		line = br.readLine();
 		LinkedHashMap<String, Double> prev = new LinkedHashMap<String, Double>();
@@ -46,7 +42,9 @@ public class ResultsRetriever {
 			String values[] = (keyValue[1].split(Pattern.quote("|")));
 			for (String posting : values) {
 				String postingArray[] = posting.split(";");
-				prev.put(postingArray[0], NUM_OF_FILES*Double.parseDouble(postingArray[1])/values.length);
+				prev.put(postingArray[0],
+						NUM_OF_FILES * Double.parseDouble(postingArray[1])
+								/ values.length);
 			}
 			line = br.readLine();
 		}
@@ -55,10 +53,23 @@ public class ResultsRetriever {
 			prev = intersect(residue, prev, keyValue[1]);
 			line = br.readLine();
 		}
-		
-		
+
 		List<Map.Entry<String, Double>> entries = new ArrayList<Map.Entry<String, Double>>(
-				residue.entrySet());
+				prev.entrySet());
+		Collections.sort(entries, new Comparator<Map.Entry<String, Double>>() {
+
+			@Override
+			public int compare(Entry<String, Double> o1,
+					Entry<String, Double> o2) {
+				return -1 * o1.getValue().compareTo(o2.getValue());
+			}
+		});
+		prev.clear();
+		for (Entry en : entries) {
+			prev.put(en.getKey().toString(), (Double) en.getValue());
+		}
+
+		entries = new ArrayList<Map.Entry<String, Double>>(residue.entrySet());
 		Collections.sort(entries, new Comparator<Map.Entry<String, Double>>() {
 
 			@Override
@@ -79,24 +90,23 @@ public class ResultsRetriever {
 			LinkedHashMap<String, Double> prev, String line) {
 		String[] st = line.split("\\|");
 		LinkedHashMap<String, Double> current = new LinkedHashMap<String, Double>();
-		for (String posting:st) {
+		for (String posting : st) {
 			posting = posting.trim();
 			String[] str = posting.split(";");
-			Double rank=Double.parseDouble(str[1])*NUM_OF_FILES/st.length;
+			Double rank = Double.parseDouble(str[1]) * NUM_OF_FILES / st.length;
 			if (prev.containsKey(str[0])) {
-				 rank=prev.get(str[0])>rank?prev.get(str[0]):rank;
+				rank = prev.get(str[0]) > rank ? prev.get(str[0]) : rank;
 				current.put(str[0], rank);
 				prev.remove(str[0]);
 			} else {
 				if (!residue.containsKey(str[0])) {
 					residue.put(str[0], rank);
-				}
-				else{
-					if(prev.get(str[0])<rank){
+				} else {
+					if (prev.get(str[0]) < rank) {
 						prev.remove(str[0]);
-						prev.put(str[0],rank);
+						prev.put(str[0], rank);
 					}
-					
+
 				}
 			}
 		}
@@ -109,12 +119,13 @@ public class ResultsRetriever {
 
 	public static LinkedHashMap<String, Double> getResults(String a)
 			throws IOException {
-		Configuration conf=new Configuration();
-		conf.addResource(new Path("/home/oghanek/hadoop-2.6.0/etc/hadoop/core-site.xml"));
-		FileSystem fs= FileSystem.get(conf);
+		Configuration conf = new Configuration();
+		conf.addResource(new Path(
+				"/home/oghanek/hadoop-2.6.0/etc/hadoop/core-site.xml"));
+		FileSystem fs = FileSystem.get(conf);
 		fs.setConf(conf);
-		LinkedHashMap<String, Double> results = retrieve(a.split(" "),fs);
-		fs.delete(new Path("/user/oghanek/result/"),true);
+		LinkedHashMap<String, Double> results = retrieve(a.split(" "), fs);
+		fs.delete(new Path("/user/oghanek/result/"), true);
 		return results;
 	}
 }
