@@ -102,9 +102,9 @@ public class ResultsRetriever {
 				if (!residue.containsKey(str[0])) {
 					residue.put(str[0], rank);
 				} else {
-					if (prev.get(str[0]) < rank) {
-						prev.remove(str[0]);
-						prev.put(str[0], rank);
+					if (residue.get(str[0]) < rank) {
+						residue.remove(str[0]);
+						residue.put(str[0], rank);
 					}
 
 				}
