@@ -24,7 +24,7 @@ import org.apache.hadoop.hdfs.DistributedFileSystem;
 
 public class ResultsRetriever {
 	
-	static int NUM_OF_FILES=3;
+	static int NUM_OF_FILES=4724;
 
 	public static LinkedHashMap<String, Double> retrieve(String[] query, FileSystem fs)
 			throws IOException {
@@ -55,6 +55,8 @@ public class ResultsRetriever {
 			prev = intersect(residue, prev, keyValue[1]);
 			line = br.readLine();
 		}
+		
+		
 		List<Map.Entry<String, Double>> entries = new ArrayList<Map.Entry<String, Double>>(
 				residue.entrySet());
 		Collections.sort(entries, new Comparator<Map.Entry<String, Double>>() {
@@ -112,7 +114,7 @@ public class ResultsRetriever {
 		FileSystem fs= FileSystem.get(conf);
 		fs.setConf(conf);
 		LinkedHashMap<String, Double> results = retrieve(a.split(" "),fs);
-		fs.delete(new Path("/home/tanvi/result/"),true);
+		fs.delete(new Path("/user/oghanek/result/"),true);
 		return results;
 	}
 }
