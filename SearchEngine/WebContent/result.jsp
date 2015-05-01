@@ -17,9 +17,14 @@
 	<tbody>
 	<%
 	LinkedHashMap<String,Double> result= (LinkedHashMap)request.getAttribute("result");
+	if(result.size()==0){
+		%><p>Oops...Your search returned no results.</p><%
+	}
+	else{
+		%><p>Your search returned <%= result.size()%> results.</p><%
 	for(String str: result.keySet()){%>
 		<tr><td><a href="/SearchEngine/FileExtractor?fileName=<%= str%>"/><%= str%></td></tr>
-	<%}%>
+	<%}}%>
 	</tbody>
 </table>
 </div>
