@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy 3 elements to &apos;SearchEngine/src/mypackage&apos;&#x0A;- Original project: &apos;SearchJob&apos;&#x0A;- Destination element: &apos;SearchEngine/src/mypackage&apos;&#x0A;- Original elements:&#x0A;     mypackage.SearchMapper.java&#x0A;     mypackage.ResultsRetriever.java&#x0A;     mypackage.SearchJob.java" description="Copy compilation units" destination="=SearchEngine/src&lt;mypackage" element1="/src&lt;mypackage{SearchMapper.java" element2="/src&lt;mypackage{ResultsRetriever.java" element3="/src&lt;mypackage{SearchJob.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1429306129891" units="3" version="1.0"/>
+</session>

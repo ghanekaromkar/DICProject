@@ -1,0 +1,40 @@
+package incrementalPackage;
+
+import java.io.IOException;
+
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapred.FileInputFormat;
+import org.apache.hadoop.mapred.FileOutputFormat;
+import org.apache.hadoop.mapred.JobClient;
+import org.apache.hadoop.mapred.JobConf;
+import org.apache.hadoop.mapred.KeyValueTextInputFormat;
+
+public class IncrementalDriver {
+
+	public static void main(String args[]) throws IOException{
+		JobClient client = new JobClient();
+		JobConf config = new JobConf(IncrementalDriver.class);
+		config.setOutputKeyClass(Text.class);
+		config.setOutputValueClass(Text.class);
+		config.setInputFormat(KeyValueTextInputFormat.class);
+		FileInputFormat.setInputPaths(config, new Path(args[0]),new Path(args[1]));
+		//FileInputFormat.setInputPaths(config, new Path(args[1]));
+		FileOutputFormat.setOutputPath(config, new Path(args[2]));
+		config.setMapperClass(IncrementalMapper.class);
+		config.setReducerClass(IncrementalReducer.class);
+		//config.setNumMapTasks(3);
+		//config.setNumReduceTasks(3);
+		client.setConf(config);
+		JobClient.runJob(config);
+		config.addResource(new Path("/home/oghanek/hadoop-2.6.0/etc/hadoop/core-site.xml"));
+		FileSystem fs= FileSystem.get(config);
+		fs.setConf(config);
+		fs.delete(new Path("hdfs://152.1.13.216/user/oghanek/newindex/"),new Path("hdfs://152.1.13.216/user/oghanek/output/"));
+		fs.rename(arg0, arg1)
+
+
+		
+	}
+}

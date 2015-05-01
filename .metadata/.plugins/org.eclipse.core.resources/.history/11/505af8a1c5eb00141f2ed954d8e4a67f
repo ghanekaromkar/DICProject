@@ -1,0 +1,21 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
+
+public class HDFSRead {
+
+	public static void main(String[] args) throws IOException {
+		Path p = new Path("hdfs://152.1.13.216/user/oghanek/output/part-00000");
+		Configuration conf=new Configuration();
+		conf.addResource(new Path("/home/oghanek/hadoop-2.6.0/etc/hadoop/core-site.xml"));
+		FileSystem fs=FileSystem.get(conf);
+		BufferedReader br = new BufferedReader(new InputStreamReader(fs.open(p)));
+		String line = br.readLine();
+		System.out.println(line);
+	}
+
+}

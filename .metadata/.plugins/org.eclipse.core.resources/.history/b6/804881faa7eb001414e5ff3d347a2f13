@@ -1,0 +1,13 @@
+package random;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+import org.apache.hadoop.fs.Path;
+
+public class HDFSread {
+	Path p = new Path("hdfs://152.1.13.216/user/oghanek/result/part-00000");
+	BufferedReader br = new BufferedReader(new InputStreamReader(fs.open(p)));
+	String line;
+	line = br.readLine();
+}

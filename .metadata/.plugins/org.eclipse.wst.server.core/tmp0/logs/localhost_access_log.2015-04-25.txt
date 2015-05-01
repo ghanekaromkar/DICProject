@@ -1,0 +1,9 @@
+127.0.0.1 - - [25/Apr/2015:12:20:59 -0400] "GET / HTTP/1.1" 404 951
+127.0.0.1 - - [25/Apr/2015:12:21:14 -0400] "GET / HTTP/1.1" 404 951
+127.0.0.1 - - [25/Apr/2015:12:21:14 -0400] "GET /favicon.ico HTTP/1.1" 404 973
+127.0.0.1 - - [25/Apr/2015:12:21:14 -0400] "GET /favicon.ico HTTP/1.1" 404 973
+127.0.0.1 - - [25/Apr/2015:12:21:17 -0400] "GET /SearchEngine/ HTTP/1.1" 200 372
+127.0.0.1 - - [25/Apr/2015:12:21:29 -0400] "GET /SearchEngine/Process?queryText=computer+student HTTP/1.1" 200 248
+127.0.0.1 - - [25/Apr/2015:12:21:50 -0400] "GET /SearchEngine/FileExtractor?fileName=abcd.txt HTTP/1.1" 200 121
+127.0.0.1 - - [25/Apr/2015:12:21:58 -0400] "GET /SearchEngine/FileExtractor?fileName=lmnop.txt HTTP/1.1" 200 122
+127.0.0.1 - - [25/Apr/2015:12:22:01 -0400] "GET /SearchEngine/FileExtractor?fileName=efgh.txt HTTP/1.1" 200 129

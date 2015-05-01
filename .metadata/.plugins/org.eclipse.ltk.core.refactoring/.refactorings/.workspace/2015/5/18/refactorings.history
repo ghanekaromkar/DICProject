@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;HadoopTest&apos; to &apos;IndexBuilder&apos;" description="Rename resource &apos;HadoopTest&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="/HadoopTest" name="IndexBuilder" stamp="1430515237734" updateReferences="true"/>
+</session>

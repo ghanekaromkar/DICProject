@@ -1,0 +1,11 @@
+package mypackage;
+
+public class HDFSReader {
+
+	public static String getText(String fileName) {
+        Path pt=new Path("/home/omkar/input/"+fileName);
+
+		return null;
+	}
+
+}

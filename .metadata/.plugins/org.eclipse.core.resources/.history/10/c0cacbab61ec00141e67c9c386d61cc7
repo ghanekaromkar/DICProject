@@ -1,0 +1,7 @@
+import org.apache.hadoop.mapred.MapReduceBase;
+import org.apache.hadoop.mapred.Mapper;
+
+
+public class IncrementalMapper extends MapReduceBase implements Mapper<Text, Text, Text, Text>{
+
+}

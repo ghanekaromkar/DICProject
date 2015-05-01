@@ -1,0 +1,11 @@
+package mypackage;
+
+import java.io.IOException;
+
+public class MyClass {
+
+	public static void main(String a[]) throws ClassNotFoundException, IOException, InterruptedException{
+		
+		DriverTest.chutyamethod();
+	}
+}
