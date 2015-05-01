@@ -1,0 +1,44 @@
+package mypackage;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
+
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapred.MapReduceBase;
+import org.apache.hadoop.mapred.OutputCollector;
+import org.apache.hadoop.mapred.Reducer;
+import org.apache.hadoop.mapred.Reporter;
+
+public class IndexReducer extends MapReduceBase implements
+		Reducer<Text, Text, Text, Text> {
+	@Override
+	public void reduce(Text key, Iterator<Text> values,
+			OutputCollector<Text, Text> output, Reporter reporter)
+			throws IOException {
+		HashMap<String, Integer> documents = new HashMap<String, Integer>();
+		StringBuilder toReturn = new StringBuilder();
+		String val;
+		while (values.hasNext()) {
+			val = values.next().toString();
+			if (!documents.containsKey(val)) {
+				// toReturn.append("|");
+
+				// toReturn.append(val.toString().trim());
+				documents.put(val, new Integer(1));
+			} else {
+				Integer count = documents.get(val);
+				documents.remove(val);
+				count = count + 1;
+				documents.put(val, count);
+			}
+		}
+		for (String docKey : documents.keySet()) {
+			toReturn.append("|");
+			toReturn.append(docKey.toString().trim() + ";"
+					+ documents.get(docKey));
+		}
+		toReturn.deleteCharAt(0);
+		output.collect(key, new Text(toReturn.toString()));
+	}
+}
