@@ -1,0 +1,10 @@
+The Git Repository contains 3 projects.
+
+Project 1:(IndexBuilder)
+This project contains the code for building inverted index over a set of documents. It needs to exported as runnable Jar and executed with "hadoop jar" command. It accepts the input directory and output directory paths as two command line argumemts, in that order.
+
+Project 2:(SearchEngine)
+This is essentially a Web Project which contains code that would provide a query interface for the user and present results to the user. This application has code that would connect to the HDFS to read the index.
+
+Project 3:(IncrementalIndex)
+This project contains the code for merging of two indices(the original index and the new index also called as addendum which is built on newly added files). It needs to be exported as a Runnable Jar and executed with "hadoop jar" command. It accepts the paths to original index, addendum index and path to store updated index as command line parameters, in that order.
